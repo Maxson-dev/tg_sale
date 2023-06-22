@@ -4,6 +4,10 @@ settings.ini
 __pycache__
 *.log
 *.db
+.history
+.hypothesis/
+build/
+reports/
 
 # OS
 .DS_Store
