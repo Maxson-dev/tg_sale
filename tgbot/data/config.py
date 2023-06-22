@@ -10,7 +10,7 @@ BOT_TIMEZONE = "Europe/Moscow"  # Временная зона бота
 
 PATH_DATABASE = "tgbot/data/database.db"  # Путь к БД
 PATH_LOGS = "tgbot/data/logs.log"  # Путь к Логам
-BOT_VERSION = "3.4"  # Версия бота
+BOT_VERSION = "1.4.88"  # Версия бота
 
 
 # Получение администраторов бота
@@ -38,6 +38,9 @@ def get_admins() -> list[int]:
     return admins
 
 
-BOT_DESCRIPTION = f"""
-<b>⚜ Bot Version: <code>{BOT_VERSION}</code>
-""".strip()
+BOT_DESCRIPTION = f'''
+<b>🏴‍☠️ Bot Version: <code>{BOT_VERSION}</code> 🏴‍☠️</b>
+<b>🎰 Бот разработан и поддерживается продолжателями идей МММ и Сергея Мавроди 🎰</b>
+<b>💵 Заряду на скам лохов 🪤🦣🦣🦣 и гринд налика 💵</b>
+<b>💰💊💉🚬🎰🚀🚁💵💴💶💶💳💎</b>
+'''.strip()
