@@ -13,6 +13,6 @@ services:
       - 80:80
     working_dir: /app
     volumes:
-      - /root/tg_sale/tgbot/data/database.db:/app/tgbot/data/database.db
+      - /root/tg_sale/tgbot/data:/app/tgbot/data
     command:
       ["python3", "/app/main.py"]
