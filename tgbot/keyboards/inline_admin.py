@@ -9,8 +9,10 @@ def profile_search_finl(user_id):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("💰 Изменить баланс", callback_data=f"admin_user_balance_set:{user_id}"),
-        ikb("💰 Выдать баланс", callback_data=f"admin_user_balance_add:{user_id}")
+        ikb("💰 Изменить баланс",
+            callback_data=f"admin_user_balance_set:{user_id}"),
+        ikb("💰 Выдать баланс",
+            callback_data=f"admin_user_balance_add:{user_id}")
     ).add(
         ikb("🎁 Покупки", callback_data=f"admin_user_purchases:{user_id}"),
         ikb("💌 Отправить СМС", callback_data=f"admin_user_message:{user_id}")
@@ -32,27 +34,21 @@ def profile_search_return_finl(user_id):
     return keyboard
 
 # Способы пополнения
+
+
 def payment_choice_finl():
     keyboard = InlineKeyboardMarkup()
     get_payments = get_paymentx()
 
-    status_form_kb = ikb("✅", callback_data="change_payment:Form:False")
-    status_number_kb = ikb("✅", callback_data="change_payment:Number:False")
-    status_nickname_kb = ikb("✅", callback_data="change_payment:Nickname:False")
+    print(get_payments)
 
-    if get_payments['way_form'] == "False":
-        status_form_kb = ikb("❌", callback_data="change_payment:Form:True")
-    if get_payments['way_number'] == "False":
-        status_number_kb = ikb("❌", callback_data="change_payment:Number:True")
-    if get_payments['way_nickname'] == "False":
-        status_nickname_kb = ikb("❌", callback_data="change_payment:Nickname:True")
+    status_yoo_kb = ikb("✅", callback_data="change_payment:Yoo:False")
+
+    if get_payments['way_yoo'] == "False":
+        status_yoo_kb = ikb("❌", callback_data="change_payment:Yoo:True")
 
     keyboard.add(
-        ikb("📋 По форме", url="https://vk.cc/bYjKGM"), status_form_kb
-    ).row(
-        ikb("📞 По номеру", url="https://vk.cc/bYjKEy"), status_number_kb
-    ).row(
-        ikb("Ⓜ По никнейму", url="https://vk.cc/c8s66X"), status_nickname_kb
+        ikb("💳 ЮKassa", url="https://yookassa.ru"), status_yoo_kb
     )
 
     return keyboard
@@ -68,17 +64,21 @@ def settings_open_finl():
         get_user = get_userx(user_id=get_settings['misc_support'])
 
         if get_user is not None:
-            support_kb = ikb(f"@{get_user['user_login']} ✅", callback_data="settings_edit_support")
+            support_kb = ikb(
+                f"@{get_user['user_login']} ✅", callback_data="settings_edit_support")
         else:
-            support_kb = ikb("Не установлена ❌", callback_data="settings_edit_support")
+            support_kb = ikb("Не установлена ❌",
+                             callback_data="settings_edit_support")
             update_settingsx(misc_support="None")
     else:
-        support_kb = ikb("Не установлена ❌", callback_data="settings_edit_support")
+        support_kb = ikb("Не установлена ❌",
+                         callback_data="settings_edit_support")
 
     if "None" == get_settings['misc_faq']:
         faq_kb = ikb("Не установлено ❌", callback_data="settings_edit_faq")
     else:
-        faq_kb = ikb(f"{get_settings['misc_faq'][:15]}... ✅", callback_data="settings_edit_faq")
+        faq_kb = ikb(
+            f"{get_settings['misc_faq'][:15]}... ✅", callback_data="settings_edit_faq")
 
     keyboard.add(
         ikb("ℹ FAQ", callback_data="..."), faq_kb
@@ -123,11 +123,14 @@ def category_edit_open_finl(category_id, remover):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("🏷 Изм. название", callback_data=f"category_edit_name:{category_id}:{remover}"),
-        ikb("📁 Добавить позицию", callback_data=f"position_create_open:{category_id}"),
+        ikb("🏷 Изм. название",
+            callback_data=f"category_edit_name:{category_id}:{remover}"),
+        ikb("📁 Добавить позицию",
+            callback_data=f"position_create_open:{category_id}"),
     ).add(
         ikb("🔙 Вернуться", callback_data=f"catategory_edit_swipe:{remover}"),
-        ikb("❌ Удалить", callback_data=f"category_edit_delete:{category_id}:{remover}")
+        ikb("❌ Удалить",
+            callback_data=f"category_edit_delete:{category_id}:{remover}")
     )
 
     return keyboard
@@ -138,8 +141,10 @@ def category_edit_delete_finl(category_id, remover):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("❌ Да, удалить", callback_data=f"category_delete:{category_id}:yes:{remover}"),
-        ikb("✅ Нет, отменить", callback_data=f"category_delete:{category_id}:not:{remover}")
+        ikb("❌ Да, удалить",
+            callback_data=f"category_delete:{category_id}:yes:{remover}"),
+        ikb("✅ Нет, отменить",
+            callback_data=f"category_delete:{category_id}:not:{remover}")
     )
 
     return keyboard
@@ -150,7 +155,8 @@ def category_edit_cancel_finl(category_id, remover):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("❌ Отменить", callback_data=f"category_edit_open:{category_id}:{remover}"),
+        ikb("❌ Отменить",
+            callback_data=f"category_edit_open:{category_id}:{remover}"),
     )
 
     return keyboard
@@ -161,19 +167,28 @@ def position_edit_open_finl(position_id, category_id, remover):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("🏷 Изм. название", callback_data=f"position_edit_name:{position_id}:{category_id}:{remover}"),
-        ikb("💰 Изм. цену", callback_data=f"position_edit_price:{position_id}:{category_id}:{remover}"),
+        ikb("🏷 Изм. название",
+            callback_data=f"position_edit_name:{position_id}:{category_id}:{remover}"),
+        ikb("💰 Изм. цену",
+            callback_data=f"position_edit_price:{position_id}:{category_id}:{remover}"),
     ).add(
-        ikb("📜 Изм. описание", callback_data=f"position_edit_description:{position_id}:{category_id}:{remover}"),
-        ikb("📸 Изм. фото", callback_data=f"position_edit_photo:{position_id}:{category_id}:{remover}"),
+        ikb("📜 Изм. описание",
+            callback_data=f"position_edit_description:{position_id}:{category_id}:{remover}"),
+        ikb("📸 Изм. фото",
+            callback_data=f"position_edit_photo:{position_id}:{category_id}:{remover}"),
     ).add(
-        ikb("🗑 Очистить", callback_data=f"position_edit_clear:{position_id}:{category_id}:{remover}"),
-        ikb("🎁 Добавить товары", callback_data=f"products_add_position_open:{position_id}:{category_id}"),
+        ikb("🗑 Очистить",
+            callback_data=f"position_edit_clear:{position_id}:{category_id}:{remover}"),
+        ikb("🎁 Добавить товары",
+            callback_data=f"products_add_position_open:{position_id}:{category_id}"),
     ).add(
-        ikb("📥 Товары", callback_data=f"position_edit_items:{position_id}:{category_id}:{remover}"),
-        ikb("❌ Удалить", callback_data=f"position_edit_delete:{position_id}:{category_id}:{remover}"),
+        ikb("📥 Товары",
+            callback_data=f"position_edit_items:{position_id}:{category_id}:{remover}"),
+        ikb("❌ Удалить",
+            callback_data=f"position_edit_delete:{position_id}:{category_id}:{remover}"),
     ).add(
-        ikb("🔙 Вернуться", callback_data=f"position_edit_swipe:{category_id}:{remover}"),
+        ikb("🔙 Вернуться",
+            callback_data=f"position_edit_swipe:{category_id}:{remover}"),
     )
 
     return keyboard
@@ -184,8 +199,10 @@ def position_edit_delete_finl(position_id, category_id, remover):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("❌ Да, удалить", callback_data=f"position_delete:yes:{position_id}:{category_id}:{remover}"),
-        ikb("✅ Нет, отменить", callback_data=f"position_delete:not:{position_id}:{category_id}:{remover}")
+        ikb("❌ Да, удалить",
+            callback_data=f"position_delete:yes:{position_id}:{category_id}:{remover}"),
+        ikb("✅ Нет, отменить",
+            callback_data=f"position_delete:not:{position_id}:{category_id}:{remover}")
     )
 
     return keyboard
@@ -196,8 +213,10 @@ def position_edit_clear_finl(position_id, category_id, remover):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("❌ Да, очистить", callback_data=f"position_clear:yes:{position_id}:{category_id}:{remover}"),
-        ikb("✅ Нет, отменить", callback_data=f"position_clear:not:{position_id}:{category_id}:{remover}")
+        ikb("❌ Да, очистить",
+            callback_data=f"position_clear:yes:{position_id}:{category_id}:{remover}"),
+        ikb("✅ Нет, отменить",
+            callback_data=f"position_clear:not:{position_id}:{category_id}:{remover}")
     )
 
     return keyboard
@@ -208,7 +227,8 @@ def position_edit_cancel_finl(position_id, category_id, remover):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        ikb("❌ Отменить", callback_data=f"position_edit_open:{position_id}:{category_id}:{remover}"),
+        ikb("❌ Отменить",
+            callback_data=f"position_edit_open:{position_id}:{category_id}:{remover}"),
     )
 
     return keyboard

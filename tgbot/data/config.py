@@ -37,6 +37,10 @@ def get_admins() -> list[int]:
 
     return admins
 
+def get_yoo_config() -> dict[str, str]:
+    parser = configparser.ConfigParser()
+    parser.read("settings.ini")
+    return parser['yookassa']
 
 BOT_DESCRIPTION = f'''
 <b>🏴‍☠️ Bot Version: <code>{BOT_VERSION}</code> 🏴‍☠️</b>

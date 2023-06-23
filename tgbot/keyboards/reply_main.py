@@ -22,8 +22,9 @@ def menu_frep(user_id):
 def payments_frep():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row("🥝 Изменить QIWI 🖍", "🥝 Проверить QIWI ♻", "🥝 Баланс QIWI 👁")
-    keyboard.row("🔙 Главное меню", "🖲 Способы пополнений")
+    keyboard.row("🤖 Проверить ЮKassa ♻")
+    keyboard.row("🖲 Способы пополнений")
+    keyboard.row("🔙 Главное меню")
 
     return keyboard
 
@@ -32,7 +33,7 @@ def payments_frep():
 def functions_frep(user_id):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row("👤 Поиск профиля 🔍", "📢 Рассылка", "🧾 Поиск чеков 🔍")
+    keyboard.row("👤 Поиск профиля 🔍", "📢 Рассылка")
     keyboard.row("🔙 Главное меню")
 
     return keyboard

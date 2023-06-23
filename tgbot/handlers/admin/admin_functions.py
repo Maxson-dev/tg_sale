@@ -33,15 +33,6 @@ async def functions_profile(message: Message, state: FSMContext):
     await message.answer("<b>👤 Введите логин или айди пользователя</b>")
 
 
-# Поиск чеков
-@dp.message_handler(IsAdmin(), text="🧾 Поиск чеков 🔍", state="*")
-async def functions_receipt(message: Message, state: FSMContext):
-    await state.finish()
-
-    await state.set_state("here_receipt")
-    await message.answer("<b>🧾 Введите номер чека</b>")
-
-
 ################################ ПРИНЯТИЕ ПОИСКОВЫХ ДАННЫХ ###############################
 # Принятие айди или логина для поиска профиля
 @dp.message_handler(IsAdmin(), state="here_profile")
@@ -72,68 +63,6 @@ async def functions_profile_get(message: Message, state: FSMContext):
     else:
         await message.answer("<b>❌ Профиль не был найден</b>\n"
                              "👤 Введите логин или айди пользователя.")
-
-
-# Принятие чека для поиска
-@dp.message_handler(IsAdmin(), state="here_receipt")
-@dp.message_handler(IsAdmin(), text_startswith=['.rec', 'rec', 'Rec'])
-async def functions_receipt_get(message: Message, state: FSMContext):
-    receipt = message.text.lower()
-
-    if ".rec" in receipt or "rec" in receipt:
-        if len(receipt.split(" ")) >= 2:
-            if ".rec" in receipt: receipt = receipt.split(" ")[1]
-            if "rec" in receipt: receipt = receipt.split(" ")[1]
-        else:
-            return await message.answer("<b>❌ Вы не указали номер чека.</b>\n"
-                                        "🧾 Введите номер чека")
-
-    if receipt.startswith("#"): receipt = receipt[1:]
-
-    get_refill = get_refillx(refill_receipt=receipt)
-    get_purchase = get_purchasex(purchase_receipt=receipt)
-
-    if get_refill is not None:
-        await state.finish()
-
-        if get_refill['refill_way'] == "Form":
-            way_input = "🥝 Способ пополнения: <code>По форме</code>"
-        elif get_refill['refill_way'] == "Nickname":
-            way_input = "🥝 Способ пополнения: <code>По никнейму</code>"
-        elif get_refill['refill_way'] == "Number":
-            way_input = "🥝 Способ пополнения: <code>По номеру</code>"
-        else:
-            way_input = f"🥝 Способ пополнения: <code>{get_refill['refill_way']}</code>"
-
-        await message.answer(
-            f"<b>🧾 Чек: <code>#{get_refill['refill_receipt']}</code></b>\n"
-            "➖➖➖➖➖➖➖➖➖➖\n"
-            f"👤 Пользователь: <a href='tg://user?id={get_refill['user_id']}'>{get_refill['user_name']}</a> | <code>{get_refill['user_id']}</code>\n"
-            f"💰 Сумма пополнения: <code>{get_refill['refill_amount']}₽</code>\n"
-            f"{way_input}\n"
-            f"🏷 Комментарий: <code>{get_refill['refill_comment']}</code>\n"
-            f"🕰 Дата пополнения: <code>{get_refill['refill_date']}</code>"
-        )
-    elif get_purchase is not None:
-        await state.finish()
-
-        link_items = await upload_text(message, get_purchase['purchase_item'])
-        await message.answer(
-            f"<b>🧾 Чек: <code>#{get_purchase['purchase_receipt']}</code></b>\n"
-            f"➖➖➖➖➖➖➖➖➖➖\n"
-            f"👤 Пользователь: <a href='tg://user?id={get_purchase['user_id']}'>{get_purchase['user_name']}</a> | <code>{get_purchase['user_id']}</code>\n"
-            f"🏷 Название товара: <code>{get_purchase['purchase_position_name']}</code>\n"
-            f"📦 Куплено товаров: <code>{get_purchase['purchase_count']}шт</code>\n"
-            f"💰 Цена одного товара: <code>{get_purchase['purchase_price_one']}₽</code>\n"
-            f"💸 Сумма покупки: <code>{get_purchase['purchase_price']}₽</code>\n"
-            f"🔗 Товары: <a href='{link_items}'>кликабельно</a>\n"
-            f"🔻 Баланс до покупки: <code>{get_purchase['balance_before']}₽</code>\n"
-            f"🔺 Баланс после покупки: <code>{get_purchase['balance_after']}₽</code>\n"
-            f"🕰 Дата покупки: <code>{get_purchase['purchase_date']}</code>"
-        )
-    else:
-        await message.answer("<b>❌ Чек не был найден.</b>\n"
-                             "🧾 Введите номер чека")
 
 
 ######################################## РАССЫЛКА ########################################

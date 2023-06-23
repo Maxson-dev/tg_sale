@@ -96,8 +96,6 @@ async def user_faq(message: Message, state: FSMContext):
         ➖➖➖➖➖➖➖➖➖➖
         {BOT_DESCRIPTION}
     """)
-        
-    print(send_message)
     await message.answer(get_faq(message.from_user.id, send_message), disable_web_page_preview=True)
 
 

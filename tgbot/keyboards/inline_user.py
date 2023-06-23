@@ -9,39 +9,25 @@ def refill_select_finl():
     keyboard = InlineKeyboardMarkup()
 
     get_payments = get_paymentx()
-    active_kb = []
 
-    if get_payments['way_form'] == "True":
-        active_kb.append(InlineKeyboardButton("📋 QIWI форма", callback_data="refill_select:Form"))
-    if get_payments['way_number'] == "True":
-        active_kb.append(InlineKeyboardButton("📞 QIWI номер", callback_data="refill_select:Number"))
-    if get_payments['way_nickname'] == "True":
-        active_kb.append(InlineKeyboardButton("Ⓜ QIWI никнейм", callback_data="refill_select:Nickname"))
-
-    if len(active_kb) == 3:
-        keyboard.add(active_kb[0], active_kb[1])
-        keyboard.add(active_kb[2])
-    elif len(active_kb) == 2:
-        keyboard.add(active_kb[0], active_kb[1])
-    elif len(active_kb) == 1:
-        keyboard.add(active_kb[0])
+    if get_payments['way_yoo'] == "True":
+        keyboard.add(InlineKeyboardButton("💳 ЮKassa", callback_data="refill_select:Yoo"))
     else:
-        keyboard = None
+        return None
 
-    if len(active_kb) >= 1:
-        keyboard.add(InlineKeyboardButton("🔙 Вернуться", callback_data="user_profile"))
+    keyboard.add(InlineKeyboardButton("🔙 Вернуться", callback_data="user_profile"))
 
     return keyboard
 
 
 # Проверка киви платежа
-def refill_bill_finl(send_requests, get_receipt, get_way):
+def refill_bill_finl(pay_link: str, pay_id: str, pay_way: str):
     keyboard = InlineKeyboardMarkup()
 
     keyboard.add(
-        InlineKeyboardButton("🌀 Перейти к оплате", url=send_requests)
+        InlineKeyboardButton("🌀 Перейти к оплате", url=pay_link)
     ).add(
-        InlineKeyboardButton("🔄 Проверить оплату", callback_data=f"Pay:{get_way}:{get_receipt}")
+        InlineKeyboardButton("🔄 Проверить оплату", callback_data=f"Pay:{pay_way}:{pay_id}")
     )
 
     return keyboard
