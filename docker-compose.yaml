@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  app:
+    restart: always
+    user: root
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 8081:8081
+      - 443:443
+      - 80:80
+    working_dir: /app
+    volumes:
+      - /root/tg_sale/tgbot/data/database.db:/app/tgbot/data/database.db
+    command:
+      ["python3", "/app/main.py"]
