@@ -62,6 +62,7 @@ async def on_shutdown(dp: Dispatcher):
 
 
 if __name__ == "__main__":
+    print("CWD:", os.getcwd())
     create_dbx()
 
     scheduler.start()
