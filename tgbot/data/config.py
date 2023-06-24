@@ -43,8 +43,6 @@ def get_yoo_config() -> dict[str, str]:
     return parser['yookassa']
 
 BOT_DESCRIPTION = f'''
-<b>🏴‍☠️ Bot Version: <code>{BOT_VERSION}</code> 🏴‍☠️</b>
-<b>🎰 Бот разработан и поддерживается продолжателями идей МММ и Сергея Мавроди 🎰</b>
-<b>💵 Заряду на скам лохов 🪤🦣🦣🦣 и гринд налика 💵</b>
-<b>💰💊💉🚬🎰🚀🚁💵💴💶💶💳💎</b>
+<b>🦄 Bot Version: <code>{BOT_VERSION}</code> 🦄</b>
+<b>Спасибо что вы с нами 💓</b>
 '''.strip()
