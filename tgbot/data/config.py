@@ -44,5 +44,5 @@ def get_yoo_config() -> dict[str, str]:
 
 BOT_DESCRIPTION = f'''
 <b>🦄 Bot Version: <code>{BOT_VERSION}</code> 🦄</b>
-<b>Спасибо что вы с нами 💓</b>
+<b>💓 Спасибо что вы с нами 💓</b>
 '''.strip()
