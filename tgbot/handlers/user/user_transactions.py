@@ -48,7 +48,7 @@ async def refill_get(message: Message, state: FSMContext):
     pay_amount = int(message.text)
 
     if not (min_input_rub <= pay_amount <= 300000):
-         await cache_message.edit_text(
+        return await cache_message.edit_text(
             f"<b>❌ Неверная сумма пополнения</b>\n"
             f"▶ Cумма не должна быть меньше <code>{min_input_rub}₽</code> и больше <code>{max_input_rub}₽</code>\n"
             f"💰 Введите сумму для пополнения средств",
