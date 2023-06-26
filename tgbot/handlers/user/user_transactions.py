@@ -41,7 +41,7 @@ async def refill_way_select(call: CallbackQuery, state: FSMContext):
 @dp.message_handler(state="here_refill_amount")
 async def refill_get(message: Message, state: FSMContext):
     if not message.text.isdigit():
-         await message.answer("<b>❌ Данные были введены неверно.</b>\n"
+         return await message.answer("<b>❌ Данные были введены неверно.</b>\n"
                              "💰 Введите сумму для пополнения средств")
 
     cache_message = await message.answer("<b>♻ Подождите, платёж генерируется...</b>")
